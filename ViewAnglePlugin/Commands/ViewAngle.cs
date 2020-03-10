@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewAnglePlugin.Models;
 
 namespace ViewAnglePlugin.Commands
 {
     public class ViewAngle : IRocketCommand
     {
-        public AllowedCaller AllowedCaller => AllowedCaller.Player;
+        public AllowedCaller AllowedCaller { get { return AllowedCaller.Player; } }
 
         public string Name => "ViewAngle";
 
@@ -25,7 +26,9 @@ namespace ViewAnglePlugin.Commands
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
-
+            float Viewangle;
+            Plugin.Instance.helper.TryViewAngle((UnturnedPlayer)caller,out Viewangle);
+            UnturnedChat.Say(caller, Viewangle.ToString());
         }
     }
 }

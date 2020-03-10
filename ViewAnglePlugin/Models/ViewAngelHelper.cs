@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewAnglePlugin.Commands;
 
 namespace ViewAnglePlugin.Models
 {
@@ -15,7 +16,11 @@ namespace ViewAnglePlugin.Models
         {
             pitch = default;
             var player = (UnturnedPlayer)caller;
+            PlayerEquipment equipment = new PlayerEquipment();
+            var iteminhand = player.Player.equipment.itemID;
             if (player.CurrentVehicle == null)
+                return false;
+            if (Plugin.Instance.Configuration.Instance.ItemList.Contains(iteminhand))
                 return false;
             pitch = player.Player.look.pitch;
             return true;
